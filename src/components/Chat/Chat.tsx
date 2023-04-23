@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-
+ import loading_icon from "../../assets/typing.svg";
 const MessageBox = ({
   send_message,
   response_pending,
@@ -10,7 +10,7 @@ const MessageBox = ({
 }) => {
   const [message, set_message] = React.useState("");
   return (
-    <div className="message-box w-full flex mx-auto px-5 my-5 sticky bottom-5 mt-auto">
+    <div className="message-box w-full flex mx-auto  my-5 sticky bottom-5 mt-auto">
       <div className="flex flex-1">
         {/* <button>New chat</button> */}
         <form
@@ -29,7 +29,7 @@ const MessageBox = ({
             }}
             value={message}
             type="text"
-            className="mx-3 !outline-none block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+            className="mr-3 px-3.5 !outline-none block w-full rounded-md border-0  py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
           />
           <button
             disabled={message === ""}
@@ -63,10 +63,25 @@ const Message = ({ from, text }: { from: From; text: string }) => {
   );
 };
 
+const TypingMessage = () => {
+    return (
+      <div
+        className={
+          "flex message py-0 my-2 px-3 text-sm rounded-t-lg rounded-r-lg bg-gray-50 mr-auto "
+        }
+      >
+
+        <img src={loading_icon} className="h-10" alt="" />
+      </div>
+    );
+  };
+
 const Messages = ({
   messages,
+  show_typing
 }: {
   messages: { from: From; text: string }[];
+  show_typing: boolean
 }) => {
   const lastMessage = React.useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -78,6 +93,7 @@ const Messages = ({
       {messages.map((m) => (
         <Message from={m.from} text={m.text} />
       ))}
+      {show_typing&&<TypingMessage/>}
       <div className="h-5" ref={lastMessage}></div>
     </div>
   );
@@ -88,14 +104,14 @@ const send_message = async (messages: { from: From; text: string }[]) => {
   myHeaders.append("Authorization", "Bearer " + localStorage.getItem("user"));
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify(
-    {messages:messages.map((m) => {
+  var raw = JSON.stringify({
+    messages: messages.map((m) => {
       return {
         role: m.from === From.sahay ? "assistant" : "user",
         content: m.text,
       };
-    })}
-  );
+    }),
+  });
 
   var requestOptions: RequestInit = {
     method: "POST",
@@ -116,8 +132,8 @@ const Chat = () => {
   const [response_pending, set_response_pending] = React.useState(false);
   return (
     <>
-      <div className="chat  flex flex-1 flex-col lg:w-3/4 px-5 mx-auto">
-        <Messages messages={messages} />
+      <div className="chat  flex flex-1 flex-col lg:w-3/4 px-5 lg:mx-auto">
+        <Messages messages={messages} show_typing = {response_pending}/>
         <MessageBox
           response_pending={response_pending}
           send_message={async (text: string) => {
