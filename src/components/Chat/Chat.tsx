@@ -111,6 +111,7 @@ const send_message = async (messages: { from: From; text: string }[]) => {
         content: m.text,
       };
     }),
+    input: messages[messages.length - 1].text,
   });
 
   var requestOptions: RequestInit = {
@@ -123,7 +124,7 @@ const send_message = async (messages: { from: From; text: string }[]) => {
   return await (
     await fetch(process.env.REACT_APP_BACKEND_URL + "/message", requestOptions)
   ).json();
-};
+}
 
 const Chat = () => {
   const [messages, set_messages] = React.useState<
@@ -146,7 +147,7 @@ const Chat = () => {
                 from: From.sahay,
                 text: (
                   await send_message([...messages, { from: From.user, text }])
-                ).message,
+                ).response,
               },
             ]);
             set_response_pending(false);
