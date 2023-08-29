@@ -121,9 +121,10 @@ const send_message = async (messages: { from: From; text: string }[]) => {
     redirect: "follow",
   };
 
-  return await (
+  var res =  await (
     await fetch(process.env.REACT_APP_BACKEND_URL + "/message", requestOptions)
   ).json();
+  return res
 }
 
 const Chat = () => {
@@ -147,7 +148,7 @@ const Chat = () => {
                 from: From.sahay,
                 text: (
                   await send_message([...messages, { from: From.user, text }])
-                ).response,
+                ),
               },
             ]);
             set_response_pending(false);
