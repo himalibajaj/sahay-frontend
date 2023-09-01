@@ -105,12 +105,12 @@ const send_message = async (messages: { from: From; text: string }[]) => {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    messages: messages.map((m) => {
-      return {
-        role: m.from === From.sahay ? "assistant" : "user",
-        content: m.text,
-      };
-    }),
+    // messages: messages.map((m) => {
+    //   return {
+    //     role: m.from === From.sahay ? "assistant" : "user",
+    //     content: m.text,
+    //   };
+    // }),
     input: messages[messages.length - 1].text,
   });
 
