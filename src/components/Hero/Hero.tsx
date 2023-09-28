@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import {  googleLogout } from "@react-oauth/google";
 import { AppContext } from "../../App";
 import SignInButton from "../SignInButton/SignInButton";
-
+import CleanMem from "../mem_reload/MemButton";
 const Card = ({
   heading,
   description,
@@ -56,6 +56,22 @@ const Hero = ({
   const [profile, set_profile] = React.useState<any>(null);
   React.useEffect(()=>{if(user) {
     get_profile(user).then((res) => {
+        localStorage.setItem("details", res.sub)
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + user);
+        myHeaders.append("Content-Type", "application/json");
+        // myHeaders.append("credentials", 'include' );
+        var raw = JSON.stringify({
+          id : res.sub
+        });
+        var requestOptions: RequestInit = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+        const response = fetch(process.env.REACT_APP_BACKEND_URL + "/init", requestOptions)
+
         console.log(res)
       set_profile(res);
     }).catch(()=>{
@@ -111,6 +127,10 @@ const Hero = ({
                 New Chat
               </button>:
               <SignInButton></SignInButton>
+              )
+            )}
+            {chat_started && (
+              (user?<CleanMem></CleanMem>:null
               )
             )}
           </div>

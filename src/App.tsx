@@ -32,7 +32,7 @@ function App() {
         }}
       >
         <GoogleOAuthProvider
-          clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || ""}
+          clientId={"233687979412-o23j15koep964minh3gouqcoa2s9g3lu.apps.googleusercontent.com" || ""}
         >
           <div className="App flex flex-col bg-cover bg-no-repeat bg-center lg:bg-contain  bg-[url('/src/assets/background.jpg')]">
             <Hero

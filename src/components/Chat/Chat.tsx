@@ -103,7 +103,8 @@ const send_message = async (messages: { from: From; text: string }[]) => {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + localStorage.getItem("user"));
   myHeaders.append("Content-Type", "application/json");
-
+  // myHeaders.append("credentials", 'include' );
+  // console.log("sent by " + localStorage.getItem("details"))
   var raw = JSON.stringify({
     // messages: messages.map((m) => {
     //   return {
@@ -112,6 +113,7 @@ const send_message = async (messages: { from: From; text: string }[]) => {
     //   };
     // }),
     input: messages[messages.length - 1].text,
+    id : localStorage.getItem("details")
   });
 
   var requestOptions: RequestInit = {
