@@ -113,7 +113,8 @@ const send_message = async (messages: { from: From; text: string }[]) => {
     //   };
     // }),
     input: messages[messages.length - 1].text,
-    id : localStorage.getItem("details")
+    id : localStorage.getItem("details"),
+    lang : localStorage.getItem("language")
   });
 
   var requestOptions: RequestInit = {
