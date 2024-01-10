@@ -38,6 +38,7 @@ function App() {
             <Hero
               chat_started={chat_started}
               start_chat={() => {
+                console.log("this is called")
                 set_chat_started(true);
               }}
             />

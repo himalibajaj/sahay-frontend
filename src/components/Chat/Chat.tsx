@@ -88,7 +88,7 @@ const Messages = ({
     lastMessage.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
   return (
-    <div className="messages flex flex-col">
+    <div className="messages flex flex-col" style={{ whiteSpace: 'pre-line' }}>
       <Message from={From.sahay} text="Hi! I am Sahay. How may I help You?" />
       {messages.map((m) => (
         <Message from={m.from} text={m.text} />

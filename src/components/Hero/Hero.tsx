@@ -3,6 +3,7 @@ import {  googleLogout } from "@react-oauth/google";
 import { AppContext } from "../../App";
 import SignInButton from "../SignInButton/SignInButton";
 import CleanMem from "../mem_reload/MemButton";
+import LanguageSelection from "../language/Lang";
 const Card = ({
   heading,
   description,
@@ -120,12 +121,18 @@ const Hero = ({
           </div>
           <div className="mx-auto w-full flex my-10 text-center justify-center">
             {!chat_started && (
-              (user?<button
-                className="mx-auto bg-black rounded-full text-white py-2 px-8"
-                onClick={start_chat}
-              >
-                New Chat
-              </button>:
+              (user?
+              <LanguageSelection
+                chat_func={start_chat}
+              />
+              
+              // <button
+              //   className="mx-auto bg-black rounded-full text-white py-2 px-8"
+              //   onClick={start_chat}
+              // >
+              //   New Chat
+              // </button>
+              :
               <SignInButton></SignInButton>
               )
             )}
