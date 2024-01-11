@@ -15,7 +15,7 @@ const LanguageSelection = ({
   }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
-  const HandleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const HandleLanguageChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     // const { user, set_user } = React.useContext(AppContext);
     setSelectedLanguage(event.target.value);
     localStorage.setItem("language", event.target.value);
@@ -32,17 +32,13 @@ const LanguageSelection = ({
         body: raw,
         redirect: "follow",
     };
-    const response = fetch(process.env.REACT_APP_BACKEND_URL + "/setlang", requestOptions)
+    var res =  await (
+      await fetch(process.env.REACT_APP_BACKEND_URL  + "/setlang", requestOptions)
+    ).json();
+    console.log(res)
+    localStorage.setItem("welcome", res)
+    // const response = fetch(process.env.REACT_APP_BACKEND_URL  + "/setlang", requestOptions)
 };
-
-//   const handleStartChat = () => {
-//     if (selectedLanguage) {
-//       startChat(selectedLanguage);
-//     } else {
-//       // Handle case when no language is selected
-//       console.log('Please select a language');
-//     }
-//   };
 
   return (
     <div>

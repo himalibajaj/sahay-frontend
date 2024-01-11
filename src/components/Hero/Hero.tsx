@@ -71,7 +71,7 @@ const Hero = ({
           body: raw,
           redirect: "follow",
         };
-        const response = fetch(process.env.REACT_APP_BACKEND_URL + "/init", requestOptions)
+        const response = fetch(process.env.REACT_APP_BACKEND_URL  + "/init", requestOptions)
 
         console.log(res)
       set_profile(res);

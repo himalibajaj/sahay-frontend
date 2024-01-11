@@ -1,6 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
- import loading_icon from "../../assets/typing.svg";
+import loading_icon from "../../assets/typing.svg";
+
+
+var welcome_msg:string = "";
+if (localStorage.getItem("welcome")){
+  welcome_msg = localStorage.getItem("welcome") as string
+} ;
+
 const MessageBox = ({
   send_message,
   response_pending,
@@ -89,7 +96,8 @@ const Messages = ({
   }, [messages]);
   return (
     <div className="messages flex flex-col" style={{ whiteSpace: 'pre-line' }}>
-      <Message from={From.sahay} text="Hi! I am Sahay. How may I help You?" />
+      
+      <Message from={From.sahay} text={welcome_msg} />
       {messages.map((m) => (
         <Message from={m.from} text={m.text} />
       ))}
